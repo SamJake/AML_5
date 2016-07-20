@@ -1,3 +1,8 @@
+print("*****************************************************************")
+print("Running fill_alerts.r")
+print(paste("Script start time:", Sys.time()))
+print("*****************************************************************")
+
 #alerts <- data.frame(transactionId=numeric(0),fromAccountNo=numeric(0),amount=numeric(0),status=character(0))
 alerts <- data.frame(internal_id=integer(0),alert_date=character(0),alert_time=character(0),alert_type=character(0),status_id=character(0),
                      details=character(0),user_id=integer(0),alert_score=integer(0),transactionid=integer(0),customerid=integer(0),customeraccountid=integer(0))
@@ -8,7 +13,8 @@ alerts$alert_type <- as.character(alerts$alert_type)
 alerts$details <- as.character(alerts$details)
 alerts$status_id <- as.character(alerts$status_id)
 
-print(nrow(flag))
+print(paste("Count of flagged accounts",nrow(flag)))
+print("Finding all suspicious transactions of flagged accounts....")
 if (nrow(flag)>0)
 {
   k <- 1
@@ -32,7 +38,7 @@ if (nrow(flag)>0)
       alerts[k,4] <- "SUS_EFT"
       alerts[k,5] <- 1
       alerts[k,6] <- "Suspisious Excessive Fund Transfer Activity"
-      alerts[k,7] <- 101 + n%%4
+      alerts[k,7] <- 101 + n%%8
       alerts[k,8] <- 90
       alerts[k,9] <- temp.flag[n,1]
       alerts[k,10] <- temp.flag[n,2]
@@ -42,6 +48,8 @@ if (nrow(flag)>0)
   }
 }
 
+print(paste("Count of alerts generated:",nrow(alerts)))
+print("Printing sample alerts")
 print(head(alerts))
 setwd("/home/cloudera/output_R")
 
@@ -54,3 +62,5 @@ write.table(lapply(alerts, as.character), "Alerts_Demo.csv", sep=",", row.names 
 system("hadoop fs -put Alerts_Demo.csv /user/aml_project/data/alerts/")
 
 
+print(paste("Script end time:", Sys.time()))
+print("*****************************************************************")

@@ -1,3 +1,8 @@
+print("*****************************************************************")
+print("Running sort.r")
+print(paste("Script start time:", Sys.time()))
+print("*****************************************************************")
+
 #Sorting on acc_id internally for each cluster
 backup1 <- kyc_cluster_list
 for( l in 1:length(kyc_cluster_list))
@@ -44,9 +49,11 @@ for(h in 1:length(order2))
   tran_cluster_list_agg_ord[[h]] <- tran_cluster_list_agg[[order2[h]]]
 }
 
+print("Calculating means of kyc Clusters")
 print(kyc_cluster_means)
+
+print("Calculating means of tran Clusters")
 print(tran_cluster_list_agg_ord)
 
-
-
-
+print(paste("Script end time:", Sys.time()))
+print("*****************************************************************")

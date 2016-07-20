@@ -1,3 +1,9 @@
+print("*****************************************************************")
+print("Running reports.r")
+print(paste("Script start time:", Sys.time()))
+print("*****************************************************************")
+
+print("Writing clusters into csv files....")
 # write.csv(alerts,"E:/R/AML_4/Outputs/alerts.csv")
 # write.csv(kyc_cluster_list[[3]],"E:/R/AML_4/Outputs/kyc_cluster3.csv")
 # write.csv(kyc_cluster_list[[2]],"E:/R/AML_4/Outputs/kyc_cluster2.csv")
@@ -28,3 +34,6 @@ system("hadoop fs -put tran_cluster2.csv /user/aml_project/SAM/output/")
 
 write.table(lapply(tran_cluster_list[[1]], as.character), 'tran_cluster1.csv', sep=",", row.names = FALSE, quote = FALSE)
 system("hadoop fs -put tran_cluster1.csv /user/aml_project/SAM/output/")
+
+print(paste("Script end time:", Sys.time()))
+print("*****************************************************************")

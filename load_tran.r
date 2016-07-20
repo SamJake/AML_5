@@ -1,33 +1,41 @@
+print("*****************************************************************")
+print("Running load_tran.r")
+print(paste("Script start time:", Sys.time()))
+print("*****************************************************************")
+
+print("Clearing objects in memory...")
 rm(dt)
 rm(query1,query2,query,tran,tran_all)
 rm(q)
 setwd("/home/cloudera/output_R")
 dt <- read.csv("/home/cloudera/output_R/date.csv")
 dt <- dt[1,1]
+print(paste("Records accessed for date,",dt))
 stat <- "Cancelled"
 if(dt == "ALL")
 {
   query <- paste0("select * from file where status != '", stat,"'")
-  print(query)
+  print(paste("Query for accessing tran data:",query))
 }else
 {
   query <- paste0("select * from file where date = '",dt,"' and status != '", stat,"'")
-  print(query)
+  print(paste("Query for accessing tran data:",query))
 }
 
-#system("hadoop fs -get /user/aml_project/data/transaction/transactionDetailsFinal_A.csv .")
-tran_all <- read.csv("/home/cloudera/Desktop/AML/transactionDetailsDemoFinal2.csv")
+#system("hadoop fs -get /user/aml_project/data/transaction/transactionDetails19072016.csv /home/cloudera/Desktop/AML/")
+tran_all <- read.csv("/home/cloudera/Desktop/AML/transactionDetails19072016.csv")
 tran <- subset(tran_all,status!="Cancelled")
 
 #tran$date <- as.Date(tran$date,format="%d-%B-%y")
 
-
-print(nrow(tran))
+print(paste("Count of tran records:",nrow(tran)))
+print("Sample tran records")
 print(head(tran)[,1:5])
 print(tail(tran)[,1:5])
 
 
-
+print(paste("Script end time:", Sys.time()))
+print("*****************************************************************")
 
 
 # Sys.setenv(HIVE_HOME='/usr/lib/hive')
