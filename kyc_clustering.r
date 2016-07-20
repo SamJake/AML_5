@@ -27,3 +27,9 @@ print(head(kyc_cluster_list[[1]][,1:5]))
 print(head(kyc_cluster_list[[2]][,1:5]))
 print(head(kyc_cluster_list[[3]][,1:5]))
 
+
+
+g1 <- ggplot(clust_data2,aes(x=factor(c(1:12)),y=kyc$INCOME,color=factor(clust_data2$cluster2),group=clust_data2$cluster2)) + geom_point(size=2)
+g1 <- g1 + ggtitle("AML : KYC Clusters") + xlab("Customers") + ylab("Clustering parameters") 
+g1 <- g1 + scale_color_manual(values=c("aquamarine","darkolivegreen1","darkorchid2"),name="Customer Profiling",labels=c("Low","Mid Range","High"))
+g1
